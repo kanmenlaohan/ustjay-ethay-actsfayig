@@ -17,12 +17,21 @@ def get_fact():
     return facts[0].getText()
 
 
+def pig_latin_translation():
+
+    fact = get_fact()
+    payload = {"input_text": fact}
+    latin_response = requests.post("https://hidden-journey-62459.herokuapp.com/piglatinize/", data=payload)
+
+    return latin_response.url
+
+
 @app.route('/')
 def home():
-    return "FILL ME!"
+    url = pig_latin_translation()
+    return url
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 6787))
-    app.run(host='0.0.0.0', port=port)
-
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='172.16.68.3', port=port)
